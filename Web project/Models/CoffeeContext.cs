@@ -33,7 +33,8 @@ namespace Web_project.Models
                     Salary = 3000,
                     Password = "123",
                     PhoneNumber = "0599000001",
-                    CityId = 1
+                    CityId = 1,
+                    Role = "Admin"
                 },
                 new Agent
                 {
@@ -42,7 +43,8 @@ namespace Web_project.Models
                     Salary = 3500,
                     Password = "456",
                     PhoneNumber = "0599000002",
-                    CityId = 2
+                    CityId = 2,
+                    Role = "User"
                 }
             );
         }
