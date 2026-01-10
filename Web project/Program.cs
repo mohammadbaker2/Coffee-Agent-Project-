@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Web_project.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<CoffeeContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("CoffeeContextStr")));
 
 var app = builder.Build();
 
