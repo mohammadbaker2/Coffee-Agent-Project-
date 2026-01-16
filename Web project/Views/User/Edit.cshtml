@@ -1,0 +1,39 @@
+﻿@model Web_project.Models.Agent
+
+
+<h2>Edit Profile</h2>
+
+<form asp-action="Edit" method="post">
+    
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Password" class="form-label">Password</label>
+        <input asp-for="Password" type="password" class="form-control" />
+    </div>
+
+    <input type="hidden" asp-for="AgentId" />
+    <input type="hidden" asp-for="Role" />
+    <input type="hidden" asp-for="Salary" />
+    <div class="mb-3">
+        <label asp-for="CityId" class="form-label">City</label>
+        <select asp-for="CityId">
+            <option value="">Select City</option>
+            @foreach (City ct in ViewBag.Cities)
+            {
+                <option value="@ct.CityId">@ct.</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn-primary">Save Changes</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Web_project.Models.Agent>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>City</th>
+            <th>Salary</th>
+            <th></th> 
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Agent a in @Model) 
+        {
+            <tr>
+                <td>@a.AgentId</td>
+                <td>@a.Name</td>
+                <td>@a.PhoneNumber</td>
+                <td>@a.City.Name</td> 
+                <td>@a.Salary</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="User" asp-route-id="@a.AgentId">Edit My Info</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

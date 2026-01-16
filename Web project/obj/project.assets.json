@@ -2013,11 +2013,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hp\\Desktop\\Last year\\WEB\\web project\\Web project\\Web project\\Web project.csproj",
+      "projectUniqueName": "C:\\Users\\hp\\source\\repos\\Coffee-Agent-Project-\\Web project\\Web project.csproj",
       "projectName": "Web project",
-      "projectPath": "C:\\Users\\hp\\Desktop\\Last year\\WEB\\web project\\Web project\\Web project\\Web project.csproj",
+      "projectPath": "C:\\Users\\hp\\source\\repos\\Coffee-Agent-Project-\\Web project\\Web project.csproj",
       "packagesPath": "C:\\Users\\hp\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hp\\Desktop\\Last year\\WEB\\web project\\Web project\\Web project\\obj\\",
+      "outputPath": "C:\\Users\\hp\\source\\repos\\Coffee-Agent-Project-\\Web project\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2086,7 +2086,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

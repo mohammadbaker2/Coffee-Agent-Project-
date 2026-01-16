@@ -1,5 +1,11 @@
-﻿namespace Web_project.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Web_project.Models
+
+
 {
+    [Table("Agent")]
     public class Agent
     {
         public int AgentId { set; get; }
