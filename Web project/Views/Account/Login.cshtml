@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<h2 style="text-align:center; margin-bottom:20px;">Login</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p style="color:green; text-align:center;">@TempData["Message"]</p>
+}
+
+<form asp-action="Login" method="post" style="width: 300px; margin:auto;">
+    <div style="margin-bottom:10px;">
+        <label>Username:</label><br />
+        <input name="username" class="form-control" required />
+    </div>
+
+    <div style="margin-bottom:10px;">
+        <label>Password:</label><br />
+        <input name="password" type="password" class="form-control" required />
+    </div>
+
+    <button type="submit" style="padding:10px 20px; background-color:#6f4e37; color:white; border:none; border-radius:5px;">
+        Login
+    </button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red; text-align:center; margin-top:10px;">@ViewBag.Error</p>
+}

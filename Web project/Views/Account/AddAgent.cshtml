@@ -1,0 +1,44 @@
+﻿@model Web_project.Models.Agent
+@{
+    ViewData["Title"] = "Add Agent";
+    ViewBag.Action = "Add";
+}
+
+<h2>@ViewBag.Action Agent</h2>
+
+<form asp-action="AddAgent" method="post" style="width:400px; margin:auto;">
+    <div style="margin-bottom:10px;">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div style="margin-bottom:10px;">
+        <label asp-for="Password">Password</label>
+        <input asp-for="Password" class="form-control" />
+    </div>
+    <div style="margin-bottom:10px;">
+        <label asp-for="PhoneNumber">Phone</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+    <div style="margin-bottom:10px;">
+        <label asp-for="Salary">Salary</label>
+        <input asp-for="Salary" class="form-control" />
+    </div>
+    <div style="margin-bottom:10px;">
+        <label asp-for="CityId">City</label>
+        <select asp-for="CityId" class="form-control">
+            <option value="">-- Select City --</option>
+            @foreach (var city in ViewBag.Cities)
+            {
+                <option value="@city.CityId">@city.Name</option>
+            }
+        </select>
+    </div>
+    <div style="margin-bottom:10px;">
+        <label asp-for="Role">Role</label>
+        <select asp-for="Role" class="form-control">
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+        </select>
+    </div>
+    <button type="submit" style="padding:8px 15px; background-color:#6f4e37; color:white; border:none; border-radius:4px;">Save</button>
+</form>

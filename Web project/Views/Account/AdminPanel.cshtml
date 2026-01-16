@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<h2>Admin Panel</h2>
+
+<div style="text-align:right; margin-bottom:15px;">
+    <a asp-action="Logout" asp-controller="Account" style="padding:5px 10px; background-color:#555; color:white; text-decoration:none; border-radius:4px;">Logout</a>
+</div>
+
+<p>Choose an action:</p>
+
+<table border="1" cellpadding="10" style="border-collapse:collapse; width:50%; margin:auto; text-align:center;">
+    <tr style="background-color:#6f4e37; color:white;">
+        <th>Action</th>
+        <th>Go</th>
+    </tr>
+    <tr>
+        <td>View & Search Agents</td>
+        <td><a asp-action="AdminDashboard" style="padding:5px 10px; background-color:#4CAF50; color:white; text-decoration:none; border-radius:4px;">Go</a></td>
+    </tr>
+    <tr>
+        <td>Add New Agent</td>
+        <td><a asp-action="AddAgent" style="padding:5px 10px; background-color:#2196F3; color:white; text-decoration:none; border-radius:4px;">Go</a></td>
+    </tr>
+    <tr>
+        <td>Delete Agent</td>
+        <td><a asp-action="DeleteList" style="padding:5px 10px; background-color:#f44336; color:white; text-decoration:none; border-radius:4px;">Go</a></td>
+    </tr>
+</table>
