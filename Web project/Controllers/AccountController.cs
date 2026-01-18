@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web_project.Models;
 
@@ -17,12 +18,13 @@ namespace Web_project.Controllers
         public IActionResult Login(string username, string password)
         {
             var agent = context.Agents
-                               .FirstOrDefault(a => a.Name == username && a.Password == password);
+                .FirstOrDefault(a => a.Name == username && a.Password == password);
 
             if (agent != null)
             {
                 HttpContext.Session.SetString("UserRole", agent.Role);
                 HttpContext.Session.SetString("Username", agent.Name);
+                HttpContext.Session.SetInt32("agentId", agent.AgentId);
 
                 return agent.Role == "Admin"
                     ? RedirectToAction("AdminPanel")
@@ -32,6 +34,7 @@ namespace Web_project.Controllers
             ViewBag.Error = "Invalid username or password";
             return View();
         }
+
         [HttpGet]
         public IActionResult AdminPanel()
         {
@@ -93,21 +96,121 @@ namespace Web_project.Controllers
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login");
 
-            if (ModelState.IsValid)
-            {
-                context.Agents.Add(agent);
-                context.SaveChanges();
-                return RedirectToAction("AdminDashboard");
-            }
-
-            ViewBag.Cities = context.Cities.OrderBy(c => c.Name).ToList();
-            return View(agent);
+            context.Agents.Add(agent);
+            context.SaveChanges();
+            return RedirectToAction("AdminDashboard");
         }
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             TempData["Message"] = "You have successfully logged out!";
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public IActionResult EditAgent(int id)
+        {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login");
+
+            var agent = context.Agents.Find(id);
+            if (agent == null) return NotFound();
+
+            ViewBag.Cities = context.Cities.OrderBy(c => c.Name).ToList();
+            return View(agent);
+        }
+
+        [HttpPost]
+        public IActionResult EditAgent(Agent agent)
+        {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login");
+
+            context.Agents.Update(agent);
+            context.SaveChanges();
+            return RedirectToAction("AdminDashboard");
+
+        }
+        [HttpGet]
+        public IActionResult UserDashboard()
+        {
+            int? agentId = HttpContext.Session.GetInt32("agentId");
+            if (agentId == null) return RedirectToAction("Login");
+
+            var agent = context.Agents.Include(a => a.City)
+                                      .FirstOrDefault(a => a.AgentId == agentId);
+            return View(agent);
+        }
+
+        [HttpGet]
+        public IActionResult EditUser()
+        {
+            int? agentId = HttpContext.Session.GetInt32("agentId");
+            if (agentId == null)
+                return RedirectToAction("Login");
+
+            var agent = context.Agents.Find(agentId);
+            if (agent == null)
+                return NotFound();
+
+            ViewBag.CityList = new SelectList(
+                context.Cities.OrderBy(c => c.Name),
+                "CityId",
+                "Name",
+                agent.CityId
+            );
+
+            return View(agent);
+        }
+
+        [HttpPost]
+        public IActionResult EditUser(Agent agent, string OldPassword, string NewPassword, string ConfirmPassword)
+        {
+            ModelState.Remove("Password");
+            ModelState.Remove("City");
+
+            int? agentId = HttpContext.Session.GetInt32("agentId");
+            if (agentId == null)
+                return RedirectToAction("Login");
+
+            var existingAgent = context.Agents.Find(agentId);
+            if (existingAgent == null)
+                return NotFound();
+
+
+            if (!string.IsNullOrEmpty(NewPassword))
+            {
+                if (existingAgent.Password != OldPassword)
+                {
+                    ModelState.AddModelError("", "Old password is incorrect");
+                }
+                else if (NewPassword != ConfirmPassword)
+                {
+                    ModelState.AddModelError("", "Passwords do not match");
+                }
+                else
+                {
+                    existingAgent.Password = NewPassword;
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.CityList = new SelectList(
+                    context.Cities.OrderBy(c => c.Name),
+                    "CityId",
+                    "Name",
+                    agent.CityId
+                );
+                return View(agent);
+            }
+
+            existingAgent.Name = agent.Name;
+            existingAgent.PhoneNumber = agent.PhoneNumber;
+            existingAgent.CityId = agent.CityId;
+
+            context.SaveChanges();
+            return RedirectToAction("UserDashboard");
         }
 
     }

@@ -1,0 +1,48 @@
+﻿@model Web_project.Models.Agent
+
+<h2>Edit Profile</h2>
+
+<form asp-action="EditUser" method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Old Password</label>
+        <input type="password" name="OldPassword" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">New Password</label>
+        <input type="password" name="NewPassword" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Confirm New Password</label>
+        <input type="password" name="ConfirmPassword" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CityId" class="form-label">City</label>
+        <select asp-for="CityId" class="form-select" asp-items="ViewBag.CityList">
+            <option value="">Select City</option>
+        </select>
+    </div>
+
+    <input type="hidden" asp-for="AgentId" />
+    <input type="hidden" asp-for="Role" />
+    <input type="hidden" asp-for="Salary" />
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-action="UserDashboard" class="btn btn-secondary">Cancel</a>
+
+</form>

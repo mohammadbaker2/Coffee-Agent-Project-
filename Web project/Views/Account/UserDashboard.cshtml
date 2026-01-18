@@ -1,0 +1,16 @@
+﻿@model Web_project.Models.Agent
+
+<h2>Welcome, @Model.Name!</h2>
+
+<div class="card" style="width: 30rem;">
+    <div class="card-body">
+        <h5 class="card-title">Your Information</h5>
+        <p><strong>Name:</strong> @Model.Name</p>
+        <p><strong>Phone:</strong> @Model.PhoneNumber</p>
+        <p><strong>City:</strong> @Model.City.Name</p>
+        <p><strong>Salary:</strong> @Model.Salary</p>
+
+        <a asp-action="EditUser" class="btn btn-primary">Edit Profile / Change Password</a>
+        <a asp-action="Logout" class="btn btn-danger">Logout</a>
+    </div>
+</div>
